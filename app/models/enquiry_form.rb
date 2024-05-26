@@ -1,0 +1,2 @@
+class EnquiryForm < ApplicationRecord
+end

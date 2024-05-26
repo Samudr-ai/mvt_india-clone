@@ -1,0 +1,15 @@
+//= link_tree ../images
+//= link_tree ../fonts
+//= link_directory ../stylesheets .css
+//= link_tree ../../javascript .js
+//= link_tree ../../../vendor/javascript .js
+//= link style.css
+//= link linearicons
+//= link animate
+//= link flaticon
+//= link slick
+//= link slick-theme
+//= link bootstrap.min
+//= link bootsnav
+//= link responsive
+//= link font-awesome.min
