@@ -3,6 +3,8 @@
 css--> update the padding-left: 0 !important
 
 config--> config.hosts<<"mvt.samudr.cloud" 
+config routes--> 
+  # root "posts#index"-> root "application#home"
 
 //
 This README would normally document whatever steps are necessary to get the
