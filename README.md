@@ -1,5 +1,10 @@
 # README
-**update the padding-left: 0 !important**
+//deployment updates
+css--> update the padding-left: 0 !important
+
+config--> config.hosts<<"mvt.samudr.cloud" 
+
+//
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
