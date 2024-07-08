@@ -1,0 +1,47 @@
+name: CI/CD for Rails Application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0  # Change to your Ruby version
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      - name: Run tests
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+          bundle exec rails test
+
+      - name: Deploy to Azure VM
+        env:
+          AZURE_USER: ${{ secrets.AZURE_USER }}
+          AZURE_HOST: ${{ secrets.AZURE_HOST }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key
+          chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key $AZURE_USER@$AZURE_HOST "
+            cd /home/azureuser/mvt_india &&
+            git pull origin main &&
+            bundle install &&
+            RAILS_ENV=production rails db:migrate &&
+            RAILS_ENV=production rails assets:precompile &&
+            sudo systemctl restart nginx
+          "
